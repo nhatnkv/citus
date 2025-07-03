@@ -1,0 +1,63 @@
+version: '3.7'
+
+services:
+  coordinator:
+    image: citusdata/citus:13.0
+    container_name: citus_coordinator
+    restart: on-failure
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    depends_on:
+      - worker1
+      - worker2
+      - worker3
+      - worker4
+    networks:
+      - citus-net
+
+  worker1:
+    image: citusdata/citus:13.0
+    container_name: citus_worker1
+    restart: on-failure
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    networks:
+      - citus-net
+
+  worker2:
+    image: citusdata/citus:13.0
+    container_name: citus_worker2
+    restart: on-failure
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    networks:
+      - citus-net
+
+  worker3:
+    image: citusdata/citus:13.0
+    container_name: citus_worker3
+    restart: on-failure
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    networks:
+      - citus-net
+
+  worker4:
+    image: citusdata/citus:13.0
+    container_name: citus_worker4
+    restart: on-failure
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    networks:
+      - citus-net
+
+networks:
+  citus-net:
+    driver: bridge
